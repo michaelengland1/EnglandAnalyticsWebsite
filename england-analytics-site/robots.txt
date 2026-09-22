@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://englandanalytics.com/sitemap.xml

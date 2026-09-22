@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get Started — Contact England Analytics</title>
+<meta name="description" content="Tell me about your dashboard, reporting, or analytics project. Email michael@englandanalytics.com or use the inquiry form.">
+<link rel="canonical" href="https://englandanalytics.com/contact/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="England Analytics">
+<meta property="og:title" content="Get Started — Contact England Analytics">
+<meta property="og:description" content="Tell me about your dashboard, reporting, or analytics project. Email michael@englandanalytics.com or use the inquiry form.">
+<meta property="og:url" content="https://englandanalytics.com/contact/">
+<meta property="og:image" content="https://englandanalytics.com/assets/social-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#123d2b">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true" focusable="false">
+      <g fill="#c49f50">
+        <rect x="2"  y="18" width="3.6" height="7"/>
+        <rect x="7.6" y="15" width="3.6" height="10"/>
+        <rect x="13.2" y="11.5" width="3.6" height="13.5"/>
+        <rect x="18.8" y="8" width="3.6" height="17"/>
+        <rect x="24.4" y="4" width="3.6" height="21"/>
+      </g>
+      <rect x="0" y="25.5" width="30" height="1" fill="#123d2b"/>
+    </svg>
+      <span class="brand-name">England<span>Analytics</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="/templates/">Templates</a>
+      <a href="/services/">Services</a>
+      <a href="/work/">Work</a>
+      <a href="/about/">About</a>
+      <a class="btn" href="/contact/">Get started</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<section class="page-head">
+  <div class="wrap">
+    <h1>Get started</h1>
+    <p>Tell me what you are working with and what you are trying to figure out. I read every message myself and reply personally.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap layout-form">
+
+    <div class="form-shell">
+      <!-- ============================================================
+           FORM SETUP: this form needs somewhere to send submissions.
+           Sign up for Formspree, Netlify Forms, or Basin and paste the
+           endpoint into the action attribute below. Nothing else changes.
+           ============================================================ -->
+      <form id="inquiry-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+        <fieldset class="fieldset">
+          <legend>What can England Analytics help you with?</legend>
+          <div class="choices">
+            <label class="choice">
+              <input type="radio" name="interest" value="template" required>
+              <span>A dashboard template &mdash; $249
+                <em>Set up one of the ready-made dashboards with my data</em></span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="interest" value="custom">
+              <span>Custom analytics
+                <em>Build something specific to my business</em></span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="interest" value="hourly">
+              <span>Hourly or project work
+                <em>A report, some cleanup, or a dashboard that needs fixing</em></span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="interest" value="unsure">
+              <span>Not sure yet
+                <em>Help me work out which one I need</em></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="two-up">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="company">Business name</label>
+            <input type="text" id="company" name="company" autocomplete="organization">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </div>
+
+        <!-- Branch: dashboard template -->
+        <div class="branch" data-branch="template" hidden>
+          <div class="field">
+            <label for="dashboard">Which dashboard are you interested in?</label>
+            <select id="dashboard" name="dashboard" data-required>
+              <option value="">Choose a dashboard</option>
+              <option value="ecommerce-performance">E-commerce Performance Dashboard &mdash; $249</option>
+              <option value="warehouse-operations">Warehouse Operations Dashboard &mdash; $249</option>
+              <option value="sales-performance">Sales Performance Dashboard &mdash; $249</option>
+              <option value="dental-practice">Dental Practice Dashboard &mdash; $249</option>
+              <option value="not-listed">Something not listed yet</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="source">What system or file does your data come from?</label>
+            <p class="hint">Shopify, QuickBooks, a WMS, spreadsheets &mdash; whatever it is.</p>
+            <input type="text" id="source" name="data_source" data-required>
+          </div>
+          <div class="field">
+            <label for="biz">Briefly, what does your business do?</label>
+            <textarea id="biz" name="business" data-required></textarea>
+          </div>
+          <div class="field">
+            <label for="reqs">Questions or special requirements</label>
+            <textarea id="reqs" name="requirements"></textarea>
+          </div>
+        </div>
+
+        <!-- Branch: custom analytics -->
+        <div class="branch" data-branch="custom" hidden>
+          <div class="field">
+            <label for="c-biz">What does your business do?</label>
+            <textarea id="c-biz" name="business_custom" data-required></textarea>
+          </div>
+          <div class="field">
+            <label for="goal">What are you trying to accomplish?</label>
+            <textarea id="goal" name="goal" data-required></textarea>
+          </div>
+          <div class="field">
+            <label for="current">What data and reporting do you use now?</label>
+            <textarea id="current" name="current_reporting"></textarea>
+          </div>
+          <div class="field">
+            <label for="improve">What would you most like to improve?</label>
+            <textarea id="improve" name="improve"></textarea>
+          </div>
+          <div class="field">
+            <label for="timeline">Rough timeline</label>
+            <input type="text" id="timeline" name="timeline" placeholder="As soon as possible, next quarter, no rush">
+          </div>
+        </div>
+
+        <!-- Branch: hourly / project -->
+        <div class="branch" data-branch="hourly" hidden>
+          <div class="field">
+            <label for="need">What do you need help with?</label>
+            <textarea id="need" name="need" data-required></textarea>
+          </div>
+          <div class="field">
+            <label for="tools">What tools or files are involved?</label>
+            <input type="text" id="tools" name="tools" placeholder="Excel, Power BI, SQL Server, CSV exports">
+          </div>
+          <div class="field">
+            <label for="h-timeline">When do you need it done?</label>
+            <input type="text" id="h-timeline" name="timeline_hourly">
+          </div>
+        </div>
+
+        <!-- Branch: not sure -->
+        <div class="branch" data-branch="unsure" hidden>
+          <div class="field">
+            <label for="u-problem">What are you trying to figure out about your business?</label>
+            <p class="hint">Plain language is fine. You do not need to know what the solution is called.</p>
+            <textarea id="u-problem" name="problem" data-required></textarea>
+          </div>
+          <div class="field">
+            <label for="u-current">What do you use today to track it?</label>
+            <input type="text" id="u-current" name="current_tools">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="anything">Anything else I should know?</label>
+          <textarea id="anything" name="anything"></textarea>
+        </div>
+
+        <button class="btn btn-gold" type="submit">Send inquiry</button>
+        <p class="form-note">I reply personally, usually within one business day. Nothing is charged and no payment details are collected here &mdash; for template requests I confirm the dashboard fits your data first, then explain payment and next steps.</p>
+      </form>
+    </div>
+
+    <aside class="contact-aside">
+      <dl>
+        <dt>Email</dt>
+        <dd><a href="mailto:michael@englandanalytics.com">michael@englandanalytics.com</a></dd>
+        <dt>Response time</dt>
+        <dd>Usually within one business day.</dd>
+        <dt>Who you are writing to</dt>
+        <dd>Michael England, directly. England Analytics is an independent business.</dd>
+      </dl>
+      <div class="card" style="margin-top:2rem">
+        <h4>Prefer to browse first?</h4>
+        <p>Have a look at the <a href="/templates/">dashboard templates</a> to see whether one of them already covers what you need.</p>
+      </div>
+    </aside>
+
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <span class="brand-name">England<span>Analytics</span></span>
+        <p style="margin-top:1rem;max-width:34ch">Business analytics and dashboards for small and growing companies. Run independently by Michael England.</p>
+        <p><a href="mailto:michael@englandanalytics.com">michael@englandanalytics.com</a></p>
+      </div>
+      <div>
+        <h4>Dashboard templates</h4>
+        <ul>
+        <li><a href="/templates/ecommerce-performance/">E-commerce Performance</a></li>
+        <li><a href="/templates/warehouse-operations/">Warehouse Operations</a></li>
+        <li><a href="/templates/sales-performance/">Sales Performance</a></li>
+        <li><a href="/templates/dental-practice/">Dental Practice</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="/templates/">All templates</a></li>
+          <li><a href="/services/">Services</a></li>
+          <li><a href="/work/">Work</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year>2026</span> England Analytics. All rights reserved.</span>
+      <span>England Analytics is an independent business.</span>
+    </div>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

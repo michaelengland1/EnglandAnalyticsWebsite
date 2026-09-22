@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" width="960" height="600" role="img" aria-label="Warehouse Operations dashboard preview">
+  <rect width="960" height="600" fill="#123d2b"/>
+  <text x="40" y="52" font-family="Archivo,Helvetica,Arial" font-size="22" font-weight="700" fill="#ffffff">Warehouse Operations</text>
+  <text x="920" y="52" text-anchor="end" font-family="Archivo,Helvetica,Arial" font-size="13" fill="#d5c299">Dashboard preview</text>
+  <rect x="40" y="66" width="880" height="1" fill="#1d5239"/>
+  <g><rect x="40" y="86" width="205" height="86" fill="#1d5239" rx="3"/>
+    <text x="56" y="116" font-family="Archivo,Helvetica,Arial" font-size="13" fill="#d5c299">Orders shipped</text>
+    <text x="56" y="152" font-family="Archivo,Helvetica,Arial" font-size="27" font-weight="700" fill="#e6c979">—</text></g><g><rect x="270" y="86" width="205" height="86" fill="#1d5239" rx="3"/>
+    <text x="286" y="116" font-family="Archivo,Helvetica,Arial" font-size="13" fill="#d5c299">On-time rate</text>
+    <text x="286" y="152" font-family="Archivo,Helvetica,Arial" font-size="27" font-weight="700" fill="#e6c979">—%</text></g><g><rect x="500" y="86" width="205" height="86" fill="#1d5239" rx="3"/>
+    <text x="516" y="116" font-family="Archivo,Helvetica,Arial" font-size="13" fill="#d5c299">Order accuracy</text>
+    <text x="516" y="152" font-family="Archivo,Helvetica,Arial" font-size="27" font-weight="700" fill="#e6c979">—%</text></g><g><rect x="730" y="86" width="205" height="86" fill="#1d5239" rx="3"/>
+    <text x="746" y="116" font-family="Archivo,Helvetica,Arial" font-size="13" fill="#d5c299">Units / hour</text>
+    <text x="746" y="152" font-family="Archivo,Helvetica,Arial" font-size="27" font-weight="700" fill="#e6c979">—</text></g>
+  <rect x="40" y="196" width="430" height="270" fill="#0c2a1d" rx="3"/>
+  <text x="56" y="226" font-family="Archivo,Helvetica,Arial" font-size="13" fill="#d5c299">Shipments by week</text>
+  <rect x="56" y="440" width="398" height="1" fill="#1d5239"/>
+  <rect x="56" y="374.0" width="26" height="66.0" fill="#c49f50" opacity="0.55"/><rect x="100" y="353.0" width="26" height="87.0" fill="#c49f50" opacity="0.64"/><rect x="144" y="363.5" width="26" height="76.5" fill="#c49f50" opacity="0.73"/><rect x="188" y="335.0" width="26" height="105.0" fill="#c49f50" opacity="0.82"/><rect x="232" y="345.5" width="26" height="94.5" fill="#c49f50" opacity="0.91"/><rect x="276" y="321.5" width="26" height="118.5" fill="#c49f50" opacity="1.00"/><rect x="320" y="311.0" width="26" height="129.0" fill="#c49f50" opacity="1.09"/><rect x="364" y="302.0" width="26" height="138.0" fill="#c49f50" opacity="1.18"/>
+  <rect x="490" y="196" width="430" height="270" fill="#0c2a1d" rx="3"/>
+  <text x="506" y="226" font-family="Archivo,Helvetica,Arial" font-size="13" fill="#d5c299">Throughput trend</text>
+  <rect x="506" y="440" width="398" height="1" fill="#1d5239"/>
+  <polyline points="560,366.0 600,353.2 640,359.6 680,337.2 720,342.0 760,324.4 800,314.8 840,318.0 880,303.6 920,295.6" fill="none" stroke="#e6c979" stroke-width="2.5"/>
+  <rect x="40" y="490" width="880" height="76" fill="#0c2a1d" rx="3"/>
+  <text x="56" y="520" font-family="Archivo,Helvetica,Arial" font-size="13" fill="#d5c299">Open orders by stage</text>
+  <g fill="#1d5239">
+    <rect x="56" y="534" width="180" height="8" rx="4"/><rect x="256" y="534" width="120" height="8" rx="4"/>
+    <rect x="396" y="534" width="150" height="8" rx="4"/><rect x="566" y="534" width="100" height="8" rx="4"/>
+    <rect x="686" y="534" width="218" height="8" rx="4"/>
+  </g>
+</svg>
