@@ -42,7 +42,6 @@
     <nav class="nav" id="site-nav" aria-label="Main">
       <a href="/templates/">Templates</a>
       <a href="/services/">Services</a>
-      <a href="/work/">Work</a>
       <a href="/about/">About</a>
       <a class="btn" href="/contact/">Get started</a>
     </nav>
@@ -61,19 +60,16 @@
   <div class="wrap layout-form">
 
     <div class="form-shell">
-      <!-- ============================================================
-           FORM SETUP: this form needs somewhere to send submissions.
-           Sign up for Formspree, Netlify Forms, or Basin and paste the
-           endpoint into the action attribute below. Nothing else changes.
-           ============================================================ -->
-      <form id="inquiry-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <!-- Netlify detects this form during deploy. Configure email notifications in Netlify. -->
+      <form id="inquiry-form" name="inquiry" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="inquiry">
 
         <fieldset class="fieldset">
           <legend>What can England Analytics help you with?</legend>
           <div class="choices">
             <label class="choice">
               <input type="radio" name="interest" value="template" required>
-              <span>A dashboard template &mdash; $249
+              <span>A dashboard template &mdash; $99–$249
                 <em>Set up one of the ready-made dashboards with my data</em></span>
             </label>
             <label class="choice">
@@ -116,10 +112,11 @@
             <label for="dashboard">Which dashboard are you interested in?</label>
             <select id="dashboard" name="dashboard" data-required>
               <option value="">Choose a dashboard</option>
-              <option value="ecommerce-performance">E-commerce Performance Dashboard &mdash; $249</option>
-              <option value="warehouse-operations">Warehouse Operations Dashboard &mdash; $249</option>
-              <option value="sales-performance">Sales Performance Dashboard &mdash; $249</option>
-              <option value="dental-practice">Dental Practice Dashboard &mdash; $249</option>
+              <option value="ecommerce-dashboard">E-Commerce Dashboard &mdash; $99</option>
+              <option value="ecommerce-business-performance">E-Commerce Business Performance Dashboard &mdash; $249</option>
+              <option value="warehouse-dashboard">Warehouse Dashboard &mdash; $99</option>
+              <option value="warehouse-business-performance">Warehouse Business Performance Dashboard &mdash; $249</option>
+              <option value="insurance-agency">Insurance Agency Dashboard &mdash; From $99</option>
               <option value="not-listed">Something not listed yet</option>
             </select>
           </div>
@@ -231,10 +228,9 @@
       <div>
         <h4>Dashboard templates</h4>
         <ul>
-        <li><a href="/templates/ecommerce-performance/">E-commerce Performance</a></li>
-        <li><a href="/templates/warehouse-operations/">Warehouse Operations</a></li>
-        <li><a href="/templates/sales-performance/">Sales Performance</a></li>
-        <li><a href="/templates/dental-practice/">Dental Practice</a></li>
+        <li><a href="/templates/ecommerce-dashboard/">E-Commerce</a></li>
+        <li><a href="/templates/ecommerce-business-performance/">E-Commerce Business Performance</a></li>
+        <li><a href="/templates/warehouse-dashboard/">Warehouse</a></li>
         </ul>
       </div>
       <div>
@@ -242,7 +238,6 @@
         <ul>
           <li><a href="/templates/">All templates</a></li>
           <li><a href="/services/">Services</a></li>
-          <li><a href="/work/">Work</a></li>
           <li><a href="/about/">About</a></li>
           <li><a href="/contact/">Contact</a></li>
         </ul>

@@ -17,19 +17,52 @@ OUT = os.path.dirname(os.path.abspath(__file__))
 SITE = "England Analytics"
 EMAIL = "michael@englandanalytics.com"
 DOMAIN = "https://englandanalytics.com"
-PRICE = "$249"
 
 # ---------------------------------------------------------------------------
 # PRODUCT CATALOG — add a dashboard by copying one entry and editing it.
 # "status": "available" or "development"
+# "price":  the dollar figure for THIS product, e.g. "$99" or "$249"
+# "pages":  how many report pages it includes, e.g. "2-3" or "3-4"
+#           (used in the copy so the price/scope stay honest per product)
 # ---------------------------------------------------------------------------
 PRODUCTS = [
     {
-        "slug": "ecommerce-performance",
-        "name": "E-commerce Performance Dashboard",
+        "slug": "ecommerce-dashboard",
+        "name": "E-Commerce Dashboard",
         "status": "available",
+        "price": "$99",
+        "pages": "2",
+        "one_line": "All your sales channels in one dashboard. Shopify, eBay, Poshmark, and more, combined from a single CSV.",
+        "best_for": "E-commerce sellers on Shopify, eBay, Poshmark, or several marketplaces at once.",
+        "shots": [
+            {"heading": "Performance Dashboard", "image": "/assets/previews/ecommerce-dashboard-1.png"},
+            {"heading": "Product Performance", "image": "/assets/previews/ecommerce-dashboard-2.png"},
+        ],
+        "understand": [
+            "What you earn across every sales channel",
+            "Which products and campaigns sell best",
+            "Who your repeat customers are",
+        ],
+        "metrics": [
+            "Revenue, orders, average order value, units, and profit",
+            "Revenue vs. profit by month",
+            "Sales by channel, campaign, and product",
+            "Repeat customers, discounts, refunds, and costs",
+        ],
+        "notes": "2 report pages, 1 dataset. Sales records from each platform are combined into a single CSV.",
+    },
+    {
+        "slug": "ecommerce-business-performance",
+        "name": "E-Commerce Business Performance Dashboard",
+        "status": "available",
+        "price": "$249",
+        "pages": "3",
         "one_line": "See revenue, orders, products, and marketing performance in one place instead of five exports.",
-        "for_whom": "Online stores on Shopify or a similar platform doing enough volume that the built-in reports stop being enough.",
+        "best_for": "Online stores on Shopify or a similar platform doing enough volume that the built-in reports stop being enough.",
+        "shots": [
+            {"heading": "Executive Overview Dashboard", "image": "/assets/previews/ecommerce-business-performance-1.png"},
+            {"heading": "Growth and Marketing", "image": "/assets/previews/ecommerce-business-performance-2.png"},
+        ],
         "understand": [
             "How sales are tracking this month against the months before it",
             "Which products carry the revenue and which ones just take up space",
@@ -43,14 +76,46 @@ PRODUCTS = [
             "Customer counts, new versus returning",
             "Marketing and channel performance",
         ],
-        "notes": "Three report pages: a business snapshot, product performance, and marketing.",
+        "notes": "3 report pages, including a full executive overview and a growth/marketing breakdown.",
     },
     {
-        "slug": "warehouse-operations",
-        "name": "Warehouse Operations Dashboard",
+        "slug": "warehouse-dashboard",
+        "name": "Warehouse Dashboard",
         "status": "available",
+        "price": "$99",
+        "pages": "2",
+        "one_line": "Track orders, on-time shipping, and accuracy without building a reporting system first.",
+        "best_for": "Small warehouses and fulfillment operations tracking volume in spreadsheets or a WMS export.",
+        "shots": [
+            {"heading": "Fulfillment Overview", "image": "/assets/previews/warehouse-dashboard-1.png"},
+            {"heading": "Client & Labor", "image": "/assets/previews/warehouse-dashboard-2.png"},
+        ],
+        "understand": [
+            "How much volume moved through the operation",
+            "Where orders slow down between received and shipped",
+            "Whether accuracy holds up as volume changes",
+        ],
+        "metrics": [
+            "Orders received, picked, and shipped",
+            "On-time shipment rate",
+            "Order accuracy and error rates",
+        ],
+        "notes": "2 report pages.",
+    },
+    {
+        "slug": "warehouse-business-performance",
+        "name": "Warehouse Business Performance Dashboard",
+        "status": "available",
+        "price": "$249",
+        "pages": "4",
         "one_line": "Track throughput, accuracy, and order flow across the warehouse without building a reporting system first.",
-        "for_whom": "Warehouses and fulfillment operations tracking volume and accuracy in spreadsheets or a WMS export.",
+        "best_for": "Warehouses and fulfillment operations tracking volume and accuracy in spreadsheets or a WMS export.",
+        "shots": [
+            {"heading": "Warehouse Performance — Executive Summary", "image": "/assets/previews/warehouse-business-performance-1.png"},
+            {"heading": "Supplier & Receiving Performance", "image": "/assets/previews/warehouse-business-performance-2.png"},
+            {"heading": "Item & Inventory Detail", "image": "/assets/previews/warehouse-business-performance-3.png"},
+            {"heading": "Order Fulfillment Detail", "image": "/assets/previews/warehouse-business-performance-4.png"},
+        ],
         "understand": [
             "How much volume moved through the operation and how that compares to last period",
             "Where orders slow down between received and shipped",
@@ -64,50 +129,36 @@ PRODUCTS = [
             "Units per hour and throughput by period",
             "Open and backlogged order volume",
         ],
-        "notes": "Built on a standard operations data model so it maps onto most WMS exports.",
+        "notes": "4 report pages. Built on a standard operations data model so it maps onto most WMS exports.",
     },
     {
-        "slug": "sales-performance",
-        "name": "Sales Performance Dashboard",
+        "slug": "insurance-agency",
+        "name": "Insurance Agency Dashboard",
         "status": "development",
-        "one_line": "Revenue, pipeline, and rep performance in one view for small sales teams.",
-        "for_whom": "Small sales teams tracking results in a CRM export or a spreadsheet.",
-        "understand": [
-            "How revenue is tracking against the previous period",
-            "Which products, regions, or customers are driving results",
-            "How individual performance compares across the team",
+        "price": "From $99",
+        "pages": None,
+        "one_line": "A dashboard for insurance agencies. In development.",
+        "best_for": "Insurance agencies reporting from spreadsheets or agency-management exports.",
+        "shots": [
+            {"heading": "Preview", "image": "/assets/previews/insurance-agency.svg"},
         ],
-        "metrics": [
-            "Revenue and units by period",
-            "Performance by rep, product, and customer",
-            "Period-over-period comparisons",
-        ],
-        "notes": "In development. The final metric list is confirmed before any implementation starts.",
-    },
-    {
-        "slug": "dental-practice",
-        "name": "Dental Practice Dashboard",
-        "status": "development",
-        "one_line": "Production, scheduling, and patient volume for a single practice or a small group.",
-        "for_whom": "Dental practices pulling reports out of practice-management software by hand each month.",
-        "understand": [
-            "How production is tracking month to month",
-            "How full the schedule is and where the gaps are",
-            "How patient visit volume is changing",
-        ],
-        "metrics": [
-            "Production by period and by provider",
-            "Appointment volume and schedule utilization",
-            "New versus returning patient counts",
-        ],
-        "notes": "In development. The final metric list is confirmed before any implementation starts.",
+        "understand": ["Details will be confirmed as the dashboard is finalized"],
+        "metrics": ["Metrics will be confirmed as the dashboard is finalized"],
+        "notes": "In development. Ask about availability.",
     },
 ]
+
+# Computed once from PRODUCTS so headline copy never drifts out of sync
+# with the actual per-product prices above.
+_prices = sorted({int(p["price"][1:]) for p in PRODUCTS if p["price"][1:].isdigit()})
+FEATURED_PRODUCTS = [p for p in PRODUCTS if p["slug"] in ("ecommerce-dashboard", "ecommerce-business-performance", "warehouse-dashboard")]
+PRICE_LOW = f"${_prices[0]}"
+PRICE_HIGH = f"${_prices[-1]}"
+PRICE_RANGE = PRICE_LOW if PRICE_LOW == PRICE_HIGH else f"{PRICE_LOW}\u2013{PRICE_HIGH}"
 
 NAV = [
     ("/templates/", "Templates"),
     ("/services/", "Services"),
-    ("/work/", "Work"),
     ("/about/", "About"),
 ]
 
@@ -178,7 +229,7 @@ def header(active):
 def footer():
     prod_links = "\n".join(
         f'        <li><a href="/templates/{p["slug"]}/">{p["name"].replace(" Dashboard", "")}</a></li>'
-        for p in PRODUCTS
+        for p in FEATURED_PRODUCTS
     )
     return f'''<footer class="site-footer">
   <div class="wrap">
@@ -199,7 +250,6 @@ def footer():
         <ul>
           <li><a href="/templates/">All templates</a></li>
           <li><a href="/services/">Services</a></li>
-          <li><a href="/work/">Work</a></li>
           <li><a href="/about/">About</a></li>
           <li><a href="/contact/">Contact</a></li>
         </ul>
@@ -233,17 +283,28 @@ def page(path, title, desc, active, body):
 # Shared blocks
 # ---------------------------------------------------------------------------
 
+def img(p):
+    shots = p.get("shots") or []
+    if shots:
+        return shots[0]["image"]
+    return f"/assets/previews/{p['slug']}.svg"
+
+
+def pages_label(p):
+    return f'{p["pages"]} pages' if p.get("pages") else "Coming soon"
+
+
 def product_card(p, heading_level="h3"):
     badge = "" if p["status"] == "available" else '<p class="small" style="margin-bottom:.5rem"><em>In development &mdash; ask about availability</em></p>'
     return f'''      <article class="product">
         <!-- Replace this image with a real screenshot: /assets/previews/{p["slug"]}.png -->
-        <img class="product-preview" src="/assets/previews/{p["slug"]}.svg" alt="Preview of the {p["name"]}" width="640" height="400" loading="lazy">
+        <img class="product-preview" src="{img(p)}" alt="Preview of the {p["name"]}" width="640" height="400" loading="lazy">
         <div class="product-body">
           <{heading_level}><a href="/templates/{p["slug"]}/">{p["name"]}</a></{heading_level}>
           {badge}
           <p>{p["one_line"]}</p>
           <div class="product-meta">
-            <p class="price">{PRICE}<small>one-time</small></p>
+            <p class="price">{p["price"]}<small>{pages_label(p)}</small></p>
             <a class="btn" href="/contact/?interest=template&amp;product={p["slug"]}">Get started</a>
           </div>
         </div>
@@ -251,14 +312,15 @@ def product_card(p, heading_level="h3"):
 '''
 
 
-def compare_block():
+def compare_block(price_label=None):
+    price_label = price_label or PRICE_RANGE
     return f'''  <div class="compare">
     <div class="compare-col card-lead">
-      <h3>Dashboard template &mdash; {PRICE}</h3>
+      <h3>Dashboard template &mdash; {price_label}</h3>
       <p>A dashboard already designed for a common business need, set up with your data.</p>
       <dl>
-        <dt>Scope</dt><dd>What the template includes, plus the setup needed to fit your data</dd>
-        <dt>Price</dt><dd>Fixed at {PRICE} per dashboard</dd>
+        <dt>Scope</dt><dd>What the template includes, plus the setup needed to fit your data. More report pages means a higher price tier.</dd>
+        <dt>Price</dt><dd>Fixed per dashboard, based on its page count &mdash; see each template for its exact price</dd>
         <dt>Timeline</dt><dd>Usually running within a week of receiving your data</dd>
         <dt>Best when</dt><dd>You need solid reporting on standard business questions, soon</dd>
       </dl>
@@ -278,8 +340,8 @@ def compare_block():
 '''
 
 
-def implementation_steps():
-    return '''  <ol class="steps">
+def implementation_steps(price_label=None):
+    return f'''  <ol class="steps">
     <li>
       <h4>You tell me what you need</h4>
       <p>A short form: which dashboard, what system your data comes from, and what your business does.</p>
@@ -289,12 +351,12 @@ def implementation_steps():
       <p>I look at your data situation and tell you honestly whether the template works, needs changes, or whether a custom project would serve you better. No charge for this part.</p>
     </li>
     <li>
-      <h4>Payment and data handoff</h4>
-      <p>Once we agree it is a fit, I invoice the ''' + PRICE + ''' and you send an export or connection details.</p>
+      <h4>Payment and setup</h4>
+      <p>Once we confirm it's a fit, I send your invoice and begin setup.</p>
     </li>
     <li>
-      <h4>Setup and delivery</h4>
-      <p>I connect your data, make the adjustments needed to fit your fields, and send the finished dashboard with written instructions for using and refreshing it.</p>
+      <h4>You're in control from here</h4>
+      <p>I connect your data, make the adjustments needed to fit your fields, and send the finished dashboard with written instructions for using and refreshing it. You maintain control of your ongoing business data going forward.</p>
     </li>
   </ol>
 '''
@@ -309,8 +371,8 @@ home = f'''<main id="main">
   <div class="wrap hero-inner">
     <div>
       <p class="hero-eyebrow">Independent business analytics, run by Michael England</p>
-      <h1>Business analytics and dashboards that make your data easier to understand and use.</h1>
-      <p>Most small businesses already have the data they need. It is just sitting in spreadsheets, order exports, and systems that do not talk to each other. I build the dashboards and reports that turn it into something you can look at and make decisions from.</p>
+      <h1>Business analytics that make your data easier to use.</h1>
+      <p>Turn your spreadsheets, exports, and business data into clear dashboards that help you understand what's happening and make better decisions.</p>
       <div class="btn-row">
         <a class="btn btn-gold" href="/contact/?interest=custom">Tell me about your project</a>
         <a class="btn btn-on-dark" href="/templates/">Browse dashboard templates</a>
@@ -321,7 +383,6 @@ home = f'''<main id="main">
         <i></i><i></i><i></i><i></i><i></i>
       </div>
       <div class="bars-base"></div>
-      <figcaption>Dashboards, reporting, and analysis for small and growing businesses.</figcaption>
     </figure>
   </div>
 </section>
@@ -335,7 +396,7 @@ home = f'''<main id="main">
     <div class="grid grid-3" style="margin-top:2.5rem">
       <article class="card card-lead">
         <h3>Dashboard templates</h3>
-        <p class="price" style="margin-bottom:1rem">{PRICE}<small>one-time, per dashboard</small></p>
+        <p class="price" style="margin-bottom:1rem">{PRICE_RANGE}<small>one-time, per dashboard</small></p>
         <p>Dashboards already designed for a specific kind of business. Pick one, I set it up with your data, you start using it. Faster and cheaper than building from scratch.</p>
         <div class="card-cta"><a class="btn" href="/templates/">Browse templates</a></div>
       </article>
@@ -357,10 +418,10 @@ home = f'''<main id="main">
   <div class="wrap">
     <div class="head">
       <h2>Dashboards built for the questions your business needs to answer</h2>
-      <p class="lede">Each one is designed around a specific kind of business, priced at {PRICE}, and set up with your own data.</p>
+      <p class="lede">Each one is designed around a specific kind of business, priced from {PRICE_LOW} depending on scope, and set up with your own data.</p>
     </div>
     <div class="grid grid-3" style="margin-top:2.5rem">
-{"".join(product_card(p) for p in PRODUCTS[:3])}    </div>
+{"".join(product_card(p) for p in FEATURED_PRODUCTS)}    </div>
     <div class="btn-row">
       <a class="btn btn-ghost" href="/templates/">See all dashboard templates</a>
     </div>
@@ -393,17 +454,6 @@ home = f'''<main id="main">
   </div>
 </section>
 
-<section class="section tint">
-  <div class="wrap">
-    <div class="head">
-      <h2>Which one fits?</h2>
-      <p class="lede">The difference between a template and custom work comes down to how specific your questions are.</p>
-    </div>
-    <div style="margin-top:2.5rem">
-{compare_block()}    </div>
-  </div>
-</section>
-
 <section class="band-dark">
   <div class="wrap">
     <div class="center-narrow">
@@ -428,7 +478,7 @@ templates_page = f'''<main id="main">
 <section class="page-head">
   <div class="wrap">
     <h1>Dashboard templates</h1>
-    <p>Dashboards already built for a specific kind of business. Choose one, and I set it up with your data for a fixed {PRICE}.</p>
+    <p>Dashboards already built for a specific kind of business. Choose one, and I set it up with your data starting at {PRICE_LOW}, depending on the dashboard's scope.</p>
   </div>
 </section>
 
@@ -445,14 +495,14 @@ templates_page = f'''<main id="main">
 <section class="section tint">
   <div class="wrap">
     <div class="head">
-      <h2>What {PRICE} covers</h2>
-      <p class="lede">Every template includes the same implementation. It is a setup service, not open-ended development.</p>
+      <h2>What the price covers</h2>
+      <p class="lede">Every template includes the same kind of implementation &mdash; the price scales with how many report pages the dashboard has, not with extra custom work.</p>
     </div>
     <div class="grid grid-2" style="margin-top:2.5rem">
       <div class="card">
         <h3>Included</h3>
         <ul>
-          <li>The dashboard template itself</li>
+          <li>A dashboard template with your requested colors and logo.</li>
           <li>Connecting it to your data source or export</li>
           <li>The adjustments needed to fit your fields and naming</li>
           <li>A working, refreshable dashboard delivered to you</li>
@@ -493,6 +543,17 @@ templates_page = f'''<main id="main">
 # Product detail
 # ---------------------------------------------------------------------------
 
+def shot_blocks(p):
+    out = []
+    for s in p["shots"]:
+        out.append(f'''        <div class="shot-block">
+          <h3>{s["heading"]}</h3>
+          <img src="{s["image"]}" alt="{s["heading"]} &mdash; {p["name"]}" width="960" height="600" loading="lazy">
+        </div>
+''')
+    return "".join(out)
+
+
 def product_detail(p):
     others = [q for q in PRODUCTS if q["slug"] != p["slug"]][:3]
     badge = "" if p["status"] == "available" else '<p class="small"><em>This dashboard is in development. You can still get in touch to be notified or to discuss it.</em></p>'
@@ -503,6 +564,7 @@ def product_detail(p):
     <p class="hero-eyebrow"><a href="/templates/" style="color:var(--sand)">Dashboard templates</a></p>
     <h1>{p["name"]}</h1>
     <p>{p["one_line"]}</p>
+    <p class="best-for"><strong>Best for:</strong> {p["best_for"]}</p>
   </div>
 </section>
 
@@ -510,15 +572,16 @@ def product_detail(p):
   <div class="wrap">
     <div class="layout-form">
       <div>
-        <!-- Replace with a real screenshot: /assets/previews/{p["slug"]}.png -->
-        <img src="/assets/previews/{p["slug"]}.svg" alt="Preview of the {p["name"]}" width="960" height="600" style="border:1px solid var(--border);border-radius:4px">
-
+        <div class="prose">
+          <h2 style="margin-top:0">See what's included</h2>
+        </div>
+{shot_blocks(p)}
         <div class="prose" style="margin-top:3rem">
           <h2>What this dashboard helps you understand</h2>
           <ul>
 {"".join(f"            <li>{u}</li>%s" % chr(10) for u in p["understand"])}          </ul>
 
-          <h2 style="margin-top:2.5rem">Key metrics</h2>
+          <h3 style="margin-top:2rem">Key metrics</h3>
           <!-- Edit this list as the dashboard is finalized. -->
           <ul>
 {"".join(f"            <li>{m}</li>%s" % chr(10) for m in p["metrics"])}          </ul>
@@ -531,9 +594,6 @@ def product_detail(p):
             <li>Written instructions for using and updating it</li>
           </ul>
 
-          <h2 style="margin-top:2.5rem">Who it is designed for</h2>
-          <p>{p["for_whom"]}</p>
-
           <h2 style="margin-top:2.5rem">How implementation works</h2>
         </div>
         <div style="max-width:60ch;margin-top:1.5rem">
@@ -542,9 +602,9 @@ def product_detail(p):
 
       <aside>
         <div class="card card-lead">
-          <p class="price" style="margin-bottom:1rem">{PRICE}<small>one-time, includes implementation</small></p>
+          <p class="price" style="margin-bottom:1rem">{p["price"]}<small>one-time, includes implementation</small></p>
           {badge}
-          <p>Fixed price. I confirm the template fits your data before you pay anything.</p>
+          <p>Fixed price for this dashboard. I confirm the template fits your data before you pay anything.</p>
           <div class="card-cta">
             <a class="btn" href="/contact/?interest=template&amp;product={p["slug"]}" style="width:100%">Get started</a>
             <p class="small" style="margin-top:1rem">Or email <a href="mailto:{EMAIL}">{EMAIL}</a></p>
@@ -557,6 +617,14 @@ def product_detail(p):
       </aside>
     </div>
   </div>
+</section>
+
+<section class="band-dark">
+  <div class="wrap"><div class="center-narrow">
+    <h2>Ready to get started?</h2>
+    <p class="lede" style="color:#dbe6dd">Tell me a bit about your business and your data, and I will confirm this dashboard fits before anything is charged.</p>
+    <div class="btn-row"><a class="btn btn-gold" href="/contact/?interest=template&amp;product={p["slug"]}">Get started</a></div>
+  </div></div>
 </section>
 
 <section class="section tint">
@@ -578,32 +646,11 @@ services = f'''<main id="main">
 <section class="page-head">
   <div class="wrap">
     <h1>Services</h1>
-    <p>Three ways to work together, depending on how specific your questions are and how much you need built.</p>
+    <p>Two ways to work together, depending on how specific your questions are and how much you need built. Looking for a ready-made dashboard instead? <a href="/templates/" style="color:var(--sand)">Browse dashboard templates</a>.</p>
   </div>
 </section>
 
 <section class="section">
-  <div class="wrap">
-    <article id="templates" class="prose-wide">
-      <h2>Dashboard templates &mdash; {PRICE} each</h2>
-      <p class="lede">Start with a proven dashboard structure instead of building one from scratch.</p>
-      <p>Each template is a dashboard already designed around a specific kind of business. You buy the implementation: I connect it to your data, adjust it to fit your fields, and hand it back working, with instructions.</p>
-      <h3>Who it is for</h3>
-      <p>Businesses that need solid reporting on fairly standard questions and would rather have something running next week than commission a build.</p>
-      <h3>What is included</h3>
-      <ul>
-        <li>The dashboard template</li>
-        <li>Data connection and configuration</li>
-        <li>The initial customization needed to fit your data</li>
-        <li>Written instructions for using and refreshing it</li>
-      </ul>
-      <p>Significant changes beyond the template become a custom analytics project. I will say so before you pay, not after.</p>
-      <div class="btn-row"><a class="btn" href="/templates/">Browse templates</a></div>
-    </article>
-  </div>
-</section>
-
-<section class="section tint">
   <div class="wrap">
     <article id="custom" class="prose-wide">
       <h2>Custom analytics</h2>
@@ -628,7 +675,7 @@ services = f'''<main id="main">
   </div>
 </section>
 
-<section class="section">
+<section class="section tint">
   <div class="wrap">
     <article id="hourly" class="prose-wide">
       <h2>Hourly and project-based analytics</h2>
@@ -652,18 +699,10 @@ services = f'''<main id="main">
   </div>
 </section>
 
-<section class="section tint">
-  <div class="wrap">
-    <div class="head"><h2>Template or custom?</h2></div>
-    <div style="margin-top:2.5rem">
-{compare_block()}    </div>
-  </div>
-</section>
-
 <section class="band-dark">
   <div class="wrap"><div class="center-narrow">
     <h2>Not sure where your project fits?</h2>
-    <p class="lede" style="color:#dbe6dd">Describe the problem and I will tell you which of these makes sense.</p>
+    <p class="lede" style="color:#dbe6dd">Describe the problem and I will tell you which of these makes sense, including a ready-made dashboard template if that is cheaper.</p>
     <div class="btn-row"><a class="btn btn-gold" href="/contact/">Get started</a></div>
   </div></div>
 </section>
@@ -693,7 +732,7 @@ work = '''<main id="main">
          =================================================================== -->
     <article class="layout-form" style="margin-bottom:4rem">
       <div>
-        <img src="/assets/previews/ecommerce-performance.svg" alt="E-commerce performance dashboard" width="960" height="600" style="border:1px solid var(--border);border-radius:4px">
+        <img src="/assets/previews/ecommerce-dashboard-1.png" alt="E-commerce performance dashboard" width="960" height="600" style="border:1px solid var(--border);border-radius:4px">
       </div>
       <div>
         <h2 style="font-size:var(--t-lg)">E-commerce performance dashboard</h2>
@@ -710,7 +749,7 @@ work = '''<main id="main">
 
     <article class="layout-form" style="margin-bottom:4rem">
       <div>
-        <img src="/assets/previews/warehouse-operations.svg" alt="Warehouse operations dashboard" width="960" height="600" style="border:1px solid var(--border);border-radius:4px">
+        <img src="/assets/previews/warehouse-dashboard.svg" alt="Warehouse operations dashboard" width="960" height="600" style="border:1px solid var(--border);border-radius:4px">
       </div>
       <div>
         <h2 style="font-size:var(--t-lg)">Warehouse operations dashboard</h2>
@@ -765,7 +804,7 @@ about = f'''<main id="main">
       <p>England Analytics is deliberately small. You work with me directly, you hear back from me directly, and if a project is not a good fit I will say so.</p>
       <div class="btn-row">
         <a class="btn" href="/contact/">Get in touch</a>
-        <a class="btn btn-ghost" href="/work/">See the work</a>
+        <a class="btn btn-ghost" href="/templates/">Browse dashboard templates</a>
       </div>
     </div>
   </div>
@@ -781,7 +820,7 @@ about = f'''<main id="main">
       </div>
       <div class="card">
         <h4>Straight answers on scope</h4>
-        <p>If a {PRICE} template covers it, I will say so. If it does not, I will say that too, before you pay.</p>
+        <p>If a template covers it, I will say so. If it does not, I will say that too, before you pay.</p>
       </div>
       <div class="card">
         <h4>Something you can maintain</h4>
@@ -798,7 +837,7 @@ about = f'''<main id="main">
 # Contact
 # ---------------------------------------------------------------------------
 product_options = "\n".join(
-    f'              <option value="{p["slug"]}">{p["name"]} &mdash; {PRICE}</option>'
+    f'              <option value="{p["slug"]}">{p["name"]} &mdash; {p["price"]}</option>'
     for p in PRODUCTS
 )
 
@@ -815,19 +854,16 @@ contact = f'''<main id="main">
   <div class="wrap layout-form">
 
     <div class="form-shell">
-      <!-- ============================================================
-           FORM SETUP: this form needs somewhere to send submissions.
-           Sign up for Formspree, Netlify Forms, or Basin and paste the
-           endpoint into the action attribute below. Nothing else changes.
-           ============================================================ -->
-      <form id="inquiry-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <!-- Netlify detects this form during deploy. Configure email notifications in Netlify. -->
+      <form id="inquiry-form" name="inquiry" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="inquiry">
 
         <fieldset class="fieldset">
           <legend>What can England Analytics help you with?</legend>
           <div class="choices">
             <label class="choice">
               <input type="radio" name="interest" value="template" required>
-              <span>A dashboard template &mdash; {PRICE}
+              <span>A dashboard template &mdash; {PRICE_RANGE}
                 <em>Set up one of the ready-made dashboards with my data</em></span>
             </label>
             <label class="choice">
@@ -981,7 +1017,6 @@ not_found = '''<main id="main">
     <ul>
       <li><a href="/templates/">Dashboard templates</a></li>
       <li><a href="/services/">Services</a></li>
-      <li><a href="/work/">Work</a></li>
       <li><a href="/about/">About</a></li>
       <li><a href="/contact/">Get started</a></li>
     </ul>
@@ -996,29 +1031,24 @@ not_found = '''<main id="main">
 if __name__ == "__main__":
     page("index.html",
          "England Analytics — Business Analytics and Dashboards for Small Businesses",
-         "Dashboards, reporting, and analytics for small and growing businesses. Ready-made dashboard templates from $249, or custom analytics work built around your business.",
+         f"Dashboards, reporting, and analytics for small and growing businesses. Ready-made dashboard templates from {PRICE_LOW}, or custom analytics work built around your business.",
          "/", home)
 
     page("templates/index.html",
-         f"Dashboard Templates — {PRICE} Each | England Analytics",
-         f"Ready-to-implement Power BI dashboard templates for e-commerce, warehouse operations, sales, and more. {PRICE} one-time, set up with your own data.",
+         f"Dashboard Templates — {PRICE_RANGE} | England Analytics",
+         f"Ready-to-implement Power BI dashboard templates for e-commerce, warehouse operations, sales, and more. From {PRICE_LOW}, set up with your own data.",
          "/templates/", templates_page)
 
     for p in PRODUCTS:
         page(f"templates/{p['slug']}/index.html",
-             f"{p['name']} — {PRICE} | England Analytics",
+             f"{p['name']} — {p['price']} | England Analytics",
              p["one_line"],
              "/templates/", product_detail(p))
 
     page("services/index.html",
          "Services — Dashboards, Custom Analytics, and Data Projects | England Analytics",
-         "Three ways to work together: $249 dashboard templates, custom analytics projects, and hourly data work including Excel, Power BI, and SQL.",
+         f"Three ways to work together: {PRICE_RANGE} dashboard templates, custom analytics projects, and hourly data work including Excel, Power BI, and SQL.",
          "/services/", services)
-
-    page("work/index.html",
-         "Work — Dashboard Examples | England Analytics",
-         "Examples of dashboards built for e-commerce and warehouse operations, including the problem each one solved and what it shows.",
-         "/work/", work)
 
     page("about/index.html",
          "About — Michael England | England Analytics",
@@ -1034,7 +1064,7 @@ if __name__ == "__main__":
          "That page does not exist.", "/", not_found)
 
     # robots + sitemap
-    urls = ["/", "/templates/", "/services/", "/work/", "/about/", "/contact/"] + \
+    urls = ["/", "/templates/", "/services/", "/about/", "/contact/"] + \
            [f"/templates/{p['slug']}/" for p in PRODUCTS]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     for u in urls:

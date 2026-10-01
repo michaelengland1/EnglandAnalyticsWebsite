@@ -23,10 +23,9 @@ size, both give you HTTPS, and both serve `/templates/` style clean URLs and the
 
 ## Before you launch — three things to do
 
-1. **Hook up the form.** `contact/index.html` has
-   `action="https://formspree.io/f/YOUR_FORM_ID"`. Create a free form at
-   Formspree (or use Netlify Forms / Basin) and paste the endpoint in. Until you
-   do, submissions go nowhere. Send yourself a test message.
+1. **Connect the contact form.** The form is configured for Netlify Forms.
+   Enable form detection in Netlify, deploy the site, then add an email
+   notification for the `inquiry` form and send yourself a test submission.
 2. **Swap in real dashboard screenshots.** The previews in `assets/previews/`
    are placeholder illustrations. Replace them with PNG exports of your actual
    dashboards and update the `src` in the matching pages (search for
