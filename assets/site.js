@@ -21,6 +21,25 @@
   var year = document.querySelector("[data-year]");
   if (year) year.textContent = new Date().getFullYear();
 
+  /* --- Dashboard theme preview ------------------------------------------ */
+  document.querySelectorAll("[data-theme-gallery]").forEach(function (gallery) {
+    var preview = gallery.querySelector("[data-theme-preview]");
+    var status = gallery.querySelector("[data-theme-status]");
+    var options = gallery.querySelectorAll("[data-theme-option]");
+
+    options.forEach(function (option) {
+      option.addEventListener("click", function () {
+        var theme = option.dataset.themeName;
+        preview.src = option.dataset.themeSrc;
+        preview.alt = "KPI Snapshot dashboard in " + theme + " theme";
+        options.forEach(function (otherOption) {
+          otherOption.setAttribute("aria-pressed", otherOption === option ? "true" : "false");
+        });
+        status.textContent = "Previewing " + theme + ".";
+      });
+    });
+  });
+
   /* --- Inquiry form ------------------------------------------------------ */
   var form = document.getElementById("inquiry-form");
   if (!form) return;

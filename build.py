@@ -17,6 +17,52 @@ OUT = os.path.dirname(os.path.abspath(__file__))
 SITE = "England Analytics"
 EMAIL = "michael@englandanalytics.com"
 DOMAIN = "https://englandanalytics.com"
+SHOP = "https://shop.englandanalytics.com"
+
+# ---------------------------------------------------------------------------
+# SELF-SERVICE DOWNLOADS — sold through the Shopify store.
+# "slug" must match the product's URL handle in Shopify; the Buy now button
+# links to SHOP/products/<slug>.
+# ---------------------------------------------------------------------------
+DOWNLOADS = [
+    {
+        "slug": "ecommerce-kpi-dashboard",
+        "name": "E-Commerce KPI",
+        "price": "$29",
+        "pages": "1",
+        "image": "/assets/previews/ecommerce-kpi-1.png",
+        "one_line": "20 essential metrics on one page: sales, customers, profitability, and operations.",
+        "includes": [
+            "20 KPI cards with month-over-month and year-over-year comparisons",
+            "Interactive filters",
+        ],
+    },
+    {
+        "slug": "ecommerce-standard-dashboard",
+        "name": "E-Commerce Standard",
+        "price": "$79",
+        "pages": "2",
+        "image": "/assets/previews/ecommerce-dashboard-1.png",
+        "one_line": "Sales trends, product performance, customers, and profitability across two pages.",
+        "includes": [
+            "Sales Performance: sales and profit trends, channels, campaigns, top products",
+            "Product &amp; Customer Performance: product profit, customers, returns, discounts, location",
+        ],
+    },
+    {
+        "slug": "ecommerce-combined-dashboard",
+        "name": "E-Commerce Combined",
+        "price": "$99",
+        "pages": "4",
+        "image": "/assets/previews/ecommerce-dashboard-2.png",
+        "one_line": "Everything in KPI and Standard, plus an order list, connected in one four-page dashboard.",
+        "includes": [
+            "The KPI page and both Standard pages",
+            "An order list with products, quantities, sales, costs, and profit",
+        ],
+    },
+]
+DOWNLOADS_PAGE = "/templates/ecommerce-dashboard/"
 
 # ---------------------------------------------------------------------------
 # PRODUCT CATALOG — add a dashboard by copying one entry and editing it.
@@ -26,31 +72,6 @@ DOMAIN = "https://englandanalytics.com"
 #           (used in the copy so the price/scope stay honest per product)
 # ---------------------------------------------------------------------------
 PRODUCTS = [
-    {
-        "slug": "ecommerce-dashboard",
-        "name": "E-Commerce Dashboard",
-        "status": "available",
-        "price": "$99",
-        "pages": "2",
-        "one_line": "All your sales channels in one dashboard. Shopify, eBay, Poshmark, and more, combined from a single CSV.",
-        "best_for": "E-commerce sellers on Shopify, eBay, Poshmark, or several marketplaces at once.",
-        "shots": [
-            {"heading": "Performance Dashboard", "image": "/assets/previews/ecommerce-dashboard-1.png"},
-            {"heading": "Product Performance", "image": "/assets/previews/ecommerce-dashboard-2.png"},
-        ],
-        "understand": [
-            "What you earn across every sales channel",
-            "Which products and campaigns sell best",
-            "Who your repeat customers are",
-        ],
-        "metrics": [
-            "Revenue, orders, average order value, units, and profit",
-            "Revenue vs. profit by month",
-            "Sales by channel, campaign, and product",
-            "Repeat customers, discounts, refunds, and costs",
-        ],
-        "notes": "2 report pages, 1 dataset. Sales records from each platform are combined into a single CSV.",
-    },
     {
         "slug": "ecommerce-business-performance",
         "name": "E-Commerce Business Performance Dashboard",
@@ -81,10 +102,11 @@ PRODUCTS = [
     {
         "slug": "warehouse-dashboard",
         "name": "Warehouse Dashboard",
-        "status": "available",
-        "price": "$99",
-        "pages": "2",
-        "one_line": "Track orders, on-time shipping, and accuracy without building a reporting system first.",
+      "status": "development",
+      "price": "Coming soon",
+      "pages": None,
+      "one_line": "Warehouse self-service packages are in development, following the KPI, Standard, and Combined format.",
+      "development_notes": "Planned packages will include four PBIX files (Sage, Ocean, Slate, and Sand), a sample Excel workbook, and setup instructions.",
         "best_for": "Small warehouses and fulfillment operations tracking volume in spreadsheets or a WMS export.",
         "shots": [
             {"heading": "Fulfillment Overview", "image": "/assets/previews/warehouse-dashboard-1.png"},
@@ -135,7 +157,7 @@ PRODUCTS = [
         "slug": "insurance-agency",
         "name": "Insurance Agency Dashboard",
         "status": "development",
-        "price": "From $99",
+        "price": "Coming soon",
         "pages": None,
         "one_line": "A dashboard for insurance agencies. In development.",
         "best_for": "Insurance agencies reporting from spreadsheets or agency-management exports.",
@@ -150,13 +172,24 @@ PRODUCTS = [
 
 # Computed once from PRODUCTS so headline copy never drifts out of sync
 # with the actual per-product prices above.
-_prices = sorted({int(p["price"][1:]) for p in PRODUCTS if p["price"][1:].isdigit()})
-FEATURED_PRODUCTS = [p for p in PRODUCTS if p["slug"] in ("ecommerce-dashboard", "ecommerce-business-performance", "warehouse-dashboard")]
+_prices = sorted({int(p["price"][1:]) for p in PRODUCTS if p["status"] == "available" and p["price"][1:].isdigit()})
+AVAILABLE_PRODUCTS = [p for p in PRODUCTS if p["status"] == "available"]
+DEVELOPMENT_PRODUCTS = [p for p in PRODUCTS if p["status"] != "available"]
+FEATURED_PRODUCTS = [p for p in AVAILABLE_PRODUCTS if p["slug"] in ("ecommerce-business-performance", "warehouse-business-performance")]
+# PRICE_* cover the set-up-for-you templates only.
 PRICE_LOW = f"${_prices[0]}"
 PRICE_HIGH = f"${_prices[-1]}"
 PRICE_RANGE = PRICE_LOW if PRICE_LOW == PRICE_HIGH else f"{PRICE_LOW}\u2013{PRICE_HIGH}"
+# ALL_* include the self-service downloads, for copy that covers every template.
+_dl_prices = sorted(int(d["price"][1:]) for d in DOWNLOADS)
+DOWNLOAD_LOW = f"${_dl_prices[0]}"
+DOWNLOAD_HIGH = f"${_dl_prices[-1]}"
+DOWNLOAD_RANGE = f"{DOWNLOAD_LOW}\u2013{DOWNLOAD_HIGH}"
+ALL_LOW = f"${min(_dl_prices[0], _prices[0])}"
+ALL_RANGE = f"{ALL_LOW}\u2013{PRICE_HIGH}"
 
 NAV = [
+    (SHOP, "Shop"),
     ("/templates/", "Templates"),
     ("/services/", "Services"),
     ("/about/", "About"),
@@ -227,7 +260,7 @@ def header(active):
 
 
 def footer():
-    prod_links = "\n".join(
+    prod_links = f'        <li><a href="{DOWNLOADS_PAGE}">E-Commerce</a></li>\n' + "\n".join(
         f'        <li><a href="/templates/{p["slug"]}/">{p["name"].replace(" Dashboard", "")}</a></li>'
         for p in FEATURED_PRODUCTS
     )
@@ -248,6 +281,7 @@ def footer():
       <div>
         <h4>Site</h4>
         <ul>
+          <li><a href="{SHOP}">Shop</a></li>
           <li><a href="/templates/">All templates</a></li>
           <li><a href="/services/">Services</a></li>
           <li><a href="/about/">About</a></li>
@@ -261,7 +295,7 @@ def footer():
     </div>
   </div>
 </footer>
-<script src="/assets/site.js" defer></script>
+<script src="/assets/site.js?v=theme-preview-1" defer></script>
 </body>
 </html>
 '''
@@ -295,32 +329,93 @@ def pages_label(p):
 
 
 def product_card(p, heading_level="h3"):
-    badge = "" if p["status"] == "available" else '<p class="small" style="margin-bottom:.5rem"><em>In development &mdash; ask about availability</em></p>'
+    available = p["status"] == "available"
+    badge = "" if available else '<p class="small" style="margin-bottom:.5rem"><em>In development</em></p>'
+    badge_markup = f"          {badge}\n" if badge else ""
+    price = p["price"] if available else "Coming soon"
+    price_note = pages_label(p) if available else "Details to come"
+    action = "Get started" if available else "View details"
     return f'''      <article class="product">
         <!-- Replace this image with a real screenshot: /assets/previews/{p["slug"]}.png -->
         <img class="product-preview" src="{img(p)}" alt="Preview of the {p["name"]}" width="640" height="400" loading="lazy">
         <div class="product-body">
           <{heading_level}><a href="/templates/{p["slug"]}/">{p["name"]}</a></{heading_level}>
-          {badge}
-          <p>{p["one_line"]}</p>
+{badge_markup}          <p>{p["one_line"]}</p>
           <div class="product-meta">
-            <p class="price">{p["price"]}<small>{pages_label(p)}</small></p>
-            <a class="btn" href="/contact/?interest=template&amp;product={p["slug"]}">Get started</a>
+            <p class="price">{price}<small>{price_note}</small></p>
+            <a class="btn" href="/templates/{p["slug"]}/">{action}</a>
           </div>
         </div>
       </article>
 '''
 
 
+def buy_url(d):
+    return f"{SHOP}/products/{d['slug']}"
+
+
+def download_card(d, heading_level="h3"):
+    pages = "1 page" if d["pages"] == "1" else f'{d["pages"]} pages'
+    return f'''      <article class="product" id="{d["slug"]}">
+        <img class="product-preview" src="{d["image"]}" alt="Preview of the {d["name"]} dashboard" width="640" height="400" loading="lazy">
+        <div class="product-body">
+          <{heading_level}><a href="{buy_url(d)}">{d["name"]}</a></{heading_level}>
+          <p>{d["one_line"]}</p>
+          <div class="product-meta">
+            <p class="price">{d["price"]}<small>{pages} &middot; instant download</small></p>
+            <a class="btn" href="{buy_url(d)}">Buy now</a>
+          </div>
+        </div>
+      </article>
+'''
+
+
+def ecommerce_family_card():
+    """One card on the homepage standing in for all three e-commerce downloads."""
+    return f'''      <article class="product">
+        <img class="product-preview" src="{DOWNLOADS[0]["image"]}" alt="Preview of the E-Commerce dashboards" width="640" height="400" loading="lazy">
+        <div class="product-body">
+          <h3><a href="{DOWNLOADS_PAGE}">E-Commerce Dashboards</a></h3>
+          <p>Choose KPI, Standard, or Combined. Each $29–$99 package is self-service and includes four theme files, a sample Excel workbook, and setup instructions.</p>
+          <div class="product-meta">
+            <p class="price">{DOWNLOAD_RANGE}<small>self-service downloads</small></p>
+            <a class="btn" href="{SHOP}">Buy now</a>
+          </div>
+        </div>
+      </article>
+'''
+
+
+KPI_THEMES = [
+    {"name": "Sage", "image": "/assets/previews/KPI%20Sage.png", "token": "sage"},
+    {"name": "Ocean", "image": "/assets/previews/KPI%20Ocean.png", "token": "ocean"},
+    {"name": "Slate", "image": "/assets/previews/KPI%20Slate.png", "token": "slate"},
+    {"name": "Sand", "image": "/assets/previews/KPI%20Sand.png", "token": "sand"},
+]
+THEME_SWATCHES = "\n".join(
+    f'          <li><span class="theme-dot theme-dot--{theme["token"]}" aria-hidden="true"></span>{theme["name"]}</li>'
+    for theme in KPI_THEMES
+)
+DOWNLOAD_FACTS = f'''<div class="download-facts">
+  <div>
+    <p class="download-facts-title">Four theme files in every download</p>
+    <ul class="theme-swatches" aria-label="Included color themes">
+{THEME_SWATCHES}
+    </ul>
+  </div>
+  <p class="small">Each $29–$99 download includes four PBIX files (one per theme), a sample Excel workbook for your data, and setup instructions. These are self-service products; implementation and color customization are not included. Power BI Desktop is free on Windows.</p>
+</div>'''
+
+
 def compare_block(price_label=None):
     price_label = price_label or PRICE_RANGE
     return f'''  <div class="compare">
     <div class="compare-col card-lead">
-      <h3>Dashboard template &mdash; {price_label}</h3>
-      <p>A dashboard already designed for a common business need, set up with your data.</p>
+      <h3>Dashboard setup &mdash; {price_label}</h3>
+      <p>A supported dashboard connected to your data and adjusted to your fields.</p>
       <dl>
-        <dt>Scope</dt><dd>What the template includes, plus the setup needed to fit your data. More report pages means a higher price tier.</dd>
-        <dt>Price</dt><dd>Fixed per dashboard, based on its page count &mdash; see each template for its exact price</dd>
+        <dt>Scope</dt><dd>Data connection, field adjustments, and a refreshable dashboard delivered ready to use.</dd>
+        <dt>Price</dt><dd>$249 for selected dashboard setups</dd>
         <dt>Timeline</dt><dd>Usually running within a week of receiving your data</dd>
         <dt>Best when</dt><dd>You need solid reporting on standard business questions, soon</dd>
       </dl>
@@ -396,8 +491,8 @@ home = f'''<main id="main">
     <div class="grid grid-3" style="margin-top:2.5rem">
       <article class="card card-lead">
         <h3>Dashboard templates</h3>
-        <p class="price" style="margin-bottom:1rem">{PRICE_RANGE}<small>one-time, per dashboard</small></p>
-        <p>Dashboards already designed for a specific kind of business. Pick one, I set it up with your data, you start using it. Faster and cheaper than building from scratch.</p>
+        <p class="price" style="margin-bottom:1rem">{DOWNLOAD_RANGE}<small>self-service downloads</small></p>
+        <p>Download a ready-made KPI, Standard, or Combined dashboard. Each includes four PBIX theme files, a sample Excel workbook, and setup instructions. Data-connected implementation is available separately for $249 on selected dashboards.</p>
         <div class="card-cta"><a class="btn" href="/templates/">Browse templates</a></div>
       </article>
       <article class="card">
@@ -418,10 +513,10 @@ home = f'''<main id="main">
   <div class="wrap">
     <div class="head">
       <h2>Dashboards built for the questions your business needs to answer</h2>
-      <p class="lede">Each one is designed around a specific kind of business, priced from {PRICE_LOW} depending on scope, and set up with your own data.</p>
+      <p class="lede">Self-service downloads are {DOWNLOAD_RANGE}. For selected dashboards, data-connected setup is available for {PRICE_LOW}.</p>
     </div>
     <div class="grid grid-3" style="margin-top:2.5rem">
-{"".join(product_card(p) for p in FEATURED_PRODUCTS)}    </div>
+{ecommerce_family_card()}{"".join(product_card(p) for p in FEATURED_PRODUCTS)}    </div>
     <div class="btn-row">
       <a class="btn btn-ghost" href="/templates/">See all dashboard templates</a>
     </div>
@@ -473,21 +568,80 @@ home = f'''<main id="main">
 # ---------------------------------------------------------------------------
 # Templates catalog
 # ---------------------------------------------------------------------------
+FAMILY_OVERVIEW = '''<section class="section family-overview">
+  <div class="wrap">
+    <div class="head">
+      <h2>Browse dashboard families</h2>
+      <p class="lede">Choose a business area first, then compare the dashboard packages available for it.</p>
+    </div>
+    <div class="family-grid">
+      <article class="family-card">
+        <img src="/assets/previews/KPI%20Sage.png" alt="E-Commerce KPI dashboard preview in Sage theme" width="1581" height="888" loading="lazy">
+        <div class="family-card-body">
+          <p class="family-status">Download packages</p>
+          <h3>E-Commerce</h3>
+          <p>KPI, Standard, and Combined packages, with all four color themes included.</p>
+          <a class="family-link" href="#download-dashboards">Compare E-Commerce packages</a>
+        </div>
+      </article>
+      <article class="family-card">
+        <img src="/assets/previews/warehouse-business-performance-1.png" alt="Warehouse Business Performance dashboard preview" width="1348" height="805" loading="lazy">
+        <div class="family-card-body">
+          <p class="family-status">$249 setup available</p>
+          <h3>Warehouse</h3>
+          <p>Get a supported warehouse dashboard connected to your data. Self-service KPI, Standard, and Combined downloads are planned.</p>
+          <a class="family-link" href="#setup-dashboards">View Warehouse set-up options</a>
+        </div>
+      </article>
+      <article class="family-card family-card--planned">
+        <div class="family-preview family-preview--planned" role="img" aria-label="Financial dashboard family planned">
+          <span>FINANCIAL<br>PREVIEW TO COME</span>
+        </div>
+        <div class="family-card-body">
+          <p class="family-status">Planned</p>
+          <h3>Financial</h3>
+          <p>Future dashboard family. Package scope, previews, and availability will be added when defined.</p>
+          <span class="family-link family-link--muted">Details to come</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>'''
+
+
 templates_page = f'''<main id="main">
 
 <section class="page-head">
   <div class="wrap">
     <h1>Dashboard templates</h1>
-    <p>Dashboards already built for a specific kind of business. Choose one, and I set it up with your data starting at {PRICE_LOW}, depending on the dashboard's scope.</p>
+    <p>Download self-service dashboards for {DOWNLOAD_RANGE}, or choose a supported $249 dashboard setup connected to your data.</p>
+  </div>
+</section>
+{FAMILY_OVERVIEW}
+
+<section id="download-dashboards" class="section">
+  <div class="wrap">
+    <div class="head">
+      <h2>Download and use today</h2>
+      <p class="lede">Ready-made e-commerce dashboards. Buy, download, add your sales data, and refresh. <a href="{DOWNLOADS_PAGE}">Compare the three versions</a>.</p>
+    </div>
+    <!-- To add a download: add an entry to DOWNLOADS in build.py and re-run the build. -->
+    <div class="grid grid-3" style="margin-top:2.5rem">
+{"".join(download_card(d, "h3") for d in DOWNLOADS)}    </div>
+    <div style="margin-top:2rem">{DOWNLOAD_FACTS}</div>
   </div>
 </section>
 
-<section class="section">
+<section id="setup-dashboards" class="section tint">
   <div class="wrap">
+    <div class="head">
+      <h2>Set up for you</h2>
+      <p class="lede">Selected $249 dashboards are connected to your data, adjusted to your fields, and delivered ready to use.</p>
+    </div>
     <!-- To add a product: copy one <article class="product"> block and edit it,
          or add an entry to PRODUCTS in build.py and re-run the build. -->
-    <div class="grid grid-3">
-{"".join(product_card(p, "h2") for p in PRODUCTS)}    </div>
+    <div class="grid grid-3" style="margin-top:2.5rem">
+{"".join(product_card(p, "h2") for p in AVAILABLE_PRODUCTS)}    </div>
     <p class="small" style="margin-top:2rem;max-width:62ch">More dashboards are being added. If you need something that is not here, <a href="/contact/?interest=custom">tell me what you are trying to track</a> &mdash; it may be a custom project, or it may be the next template.</p>
   </div>
 </section>
@@ -495,33 +649,7 @@ templates_page = f'''<main id="main">
 <section class="section tint">
   <div class="wrap">
     <div class="head">
-      <h2>What the price covers</h2>
-      <p class="lede">Every template includes the same kind of implementation &mdash; the price scales with how many report pages the dashboard has, not with extra custom work.</p>
-    </div>
-    <div class="grid grid-2" style="margin-top:2.5rem">
-      <div class="card">
-        <h3>Included</h3>
-        <ul>
-          <li>A dashboard template with your requested colors and logo.</li>
-          <li>Connecting it to your data source or export</li>
-          <li>The adjustments needed to fit your fields and naming</li>
-          <li>A working, refreshable dashboard delivered to you</li>
-          <li>Written instructions for using and updating it</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Beyond the template</h3>
-        <p>If you need metrics the template does not cover, extra report pages, several data sources combined, or calculations specific to how your business works, that is a <a href="/services/#custom">custom analytics project</a> instead.</p>
-        <p>I will tell you which one you need before you pay for anything.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="head">
-      <h2>How implementation works</h2>
+      <h2>How setup works</h2>
     </div>
     <div style="margin-top:2.5rem;max-width:60ch">
 {implementation_steps()}    </div>
@@ -556,7 +684,37 @@ def shot_blocks(p):
 
 def product_detail(p):
     others = [q for q in PRODUCTS if q["slug"] != p["slug"]][:3]
-    badge = "" if p["status"] == "available" else '<p class="small"><em>This dashboard is in development. You can still get in touch to be notified or to discuss it.</em></p>'
+    available = p["status"] == "available"
+    badge = "" if available else '<p class="small"><em>Self-service download in development; not available yet.</em></p>'
+    badge_markup = f"          {badge}\n" if badge else ""
+    if available:
+        deliverables = '''<h2 style="margin-top:2.5rem">What you receive</h2>
+          <ul>
+            <li>The dashboard, connected to your data and ready to refresh</li>
+            <li>Setup and the adjustments needed to fit your fields</li>
+            <li>Written instructions for using and updating it</li>
+          </ul>
+          <h2 style="margin-top:2.5rem">How implementation works</h2>'''
+        implementation = f'''<div style="max-width:60ch;margin-top:1.5rem">
+{implementation_steps()}        </div>'''
+        price = p["price"]
+        price_note = "one-time, includes implementation"
+        offer_text = "Fixed price for this dashboard. I confirm the template fits your data before you pay anything."
+        action_href = f'/contact/?interest=template&amp;product={p["slug"]}'
+        action_label = "Get started"
+        closing_heading = "Ready to get started?"
+        closing_text = "Tell me a bit about your business and your data, and I will confirm this dashboard fits before anything is charged."
+    else:
+        deliverables = f'''<h2 style="margin-top:2.5rem">Planned self-service release</h2>
+          <p>{p.get("development_notes", "This product is in development. Package contents, themes, and pricing will be announced when ready.")}</p>'''
+        implementation = ""
+        price = "Coming soon"
+        price_note = "self-service release planned"
+        offer_text = "This download is not available yet. It will not include data-connected setup or color customization."
+        action_href = "/contact/?interest=unsure"
+        action_label = "Ask about availability"
+        closing_heading = "Want to hear when it is ready?"
+        closing_text = "Send a note and mention this dashboard. I can let you know when its self-service files are available."
     return f'''<main id="main">
 
 <section class="page-head">
@@ -587,26 +745,17 @@ def product_detail(p):
 {"".join(f"            <li>{m}</li>%s" % chr(10) for m in p["metrics"])}          </ul>
           <p class="small">{p["notes"]}</p>
 
-          <h2 style="margin-top:2.5rem">What you receive</h2>
-          <ul>
-            <li>The dashboard, connected to your data and ready to refresh</li>
-            <li>Setup and the adjustments needed to fit your fields</li>
-            <li>Written instructions for using and updating it</li>
-          </ul>
-
-          <h2 style="margin-top:2.5rem">How implementation works</h2>
+{deliverables}
         </div>
-        <div style="max-width:60ch;margin-top:1.5rem">
-{implementation_steps()}        </div>
+{implementation}
       </div>
 
       <aside>
         <div class="card card-lead">
-          <p class="price" style="margin-bottom:1rem">{p["price"]}<small>one-time, includes implementation</small></p>
-          {badge}
-          <p>Fixed price for this dashboard. I confirm the template fits your data before you pay anything.</p>
+          <p class="price" style="margin-bottom:1rem">{price}<small>{price_note}</small></p>
+{badge_markup}          <p>{offer_text}</p>
           <div class="card-cta">
-            <a class="btn" href="/contact/?interest=template&amp;product={p["slug"]}" style="width:100%">Get started</a>
+            <a class="btn" href="{action_href}" style="width:100%">{action_label}</a>
             <p class="small" style="margin-top:1rem">Or email <a href="mailto:{EMAIL}">{EMAIL}</a></p>
           </div>
         </div>
@@ -621,9 +770,9 @@ def product_detail(p):
 
 <section class="band-dark">
   <div class="wrap"><div class="center-narrow">
-    <h2>Ready to get started?</h2>
-    <p class="lede" style="color:#dbe6dd">Tell me a bit about your business and your data, and I will confirm this dashboard fits before anything is charged.</p>
-    <div class="btn-row"><a class="btn btn-gold" href="/contact/?interest=template&amp;product={p["slug"]}">Get started</a></div>
+    <h2>{closing_heading}</h2>
+    <p class="lede" style="color:#dbe6dd">{closing_text}</p>
+    <div class="btn-row"><a class="btn btn-gold" href="{action_href}">{action_label}</a></div>
   </div></div>
 </section>
 
@@ -633,6 +782,117 @@ def product_detail(p):
     <div class="grid grid-3" style="margin-top:2.5rem">
 {"".join(product_card(q) for q in others)}    </div>
   </div>
+</section>
+
+</main>
+'''
+
+# ---------------------------------------------------------------------------
+# E-commerce downloads page (replaces the old set-up E-Commerce Dashboard page,
+# keeping its URL so existing links still work)
+# ---------------------------------------------------------------------------
+
+def tier_card(d):
+    pages = "1 page" if d["pages"] == "1" else f'{d["pages"]} pages'
+    lead = " card-lead" if d is DOWNLOADS[-1] else ""
+    items = "".join(f"          <li>{i}</li>\n" for i in d["includes"])
+    return f'''      <article class="card{lead}">
+        <h3>{d["name"]}</h3>
+        <p class="price" style="margin-bottom:1rem">{d["price"]}<small>{pages}</small></p>
+        <p>{d["one_line"]}</p>
+        <ul>
+{items}        </ul>
+        <div class="card-cta"><a class="btn" href="{buy_url(d)}" style="width:100%">Buy now</a></div>
+      </article>
+'''
+
+
+def kpi_theme_preview():
+  buttons = []
+  for index, theme in enumerate(KPI_THEMES):
+    selected = "true" if index == 0 else "false"
+    buttons.append(f'''            <button type="button" class="theme-option" data-theme-option data-theme-name="{theme["name"]}" data-theme-src="{theme["image"]}" aria-pressed="{selected}"><span class="theme-dot theme-dot--{theme["token"]}" aria-hidden="true"></span>{theme["name"]}</button>''')
+  first_theme = KPI_THEMES[0]
+  return f'''        <div class="shot-block theme-preview-block" data-theme-gallery>
+      <h3>KPI Snapshot</h3>
+      <p class="small">In KPI and Combined</p>
+      <div class="theme-options" role="group" aria-label="Preview KPI dashboard color theme">
+{chr(10).join(buttons)}
+      </div>
+      <p class="small theme-preview-status" data-theme-status aria-live="polite">Previewing {first_theme["name"]}.</p>
+      <img data-theme-preview src="{first_theme["image"]}" alt="KPI Snapshot dashboard in {first_theme["name"]} theme" width="1581" height="888" loading="lazy">
+    </div>
+'''
+
+
+ECOM_SHOTS = [
+    ("Sales Performance", "/assets/previews/ecommerce-dashboard-1.png", "In Standard and Combined"),
+    ("Product &amp; Customer Performance", "/assets/previews/ecommerce-dashboard-2.png", "In Standard and Combined"),
+]
+
+ecommerce_downloads = f'''<main id="main">
+
+<section class="page-head">
+  <div class="wrap">
+    <p class="hero-eyebrow"><a href="/templates/" style="color:var(--sand)">Dashboard templates</a></p>
+    <h1>E-Commerce Dashboards</h1>
+    <p>Ready-made dashboards for online sellers. Buy, download, add your sales data, and refresh. No setup call, no waiting.</p>
+    <p class="best-for"><strong>Best for:</strong> E-commerce sellers on Shopify, eBay, Poshmark, or several marketplaces at once.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="head"><h2>Choose your version</h2></div>
+    <div class="grid grid-3" style="margin-top:2.5rem">
+{"".join(tier_card(d) for d in DOWNLOADS)}    </div>
+    <div style="margin-top:2rem">{DOWNLOAD_FACTS}</div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="prose"><h2 style="margin-top:0">See what's included</h2></div>
+{kpi_theme_preview()}{"".join(f"""        <div class="shot-block">
+          <h3>{h}</h3>
+          <p class="small">{note}</p>
+          <img src="{src}" alt="{h} &mdash; E-Commerce Dashboards" width="960" height="600" loading="lazy">
+        </div>
+""" for h, src, note in ECOM_SHOTS)}  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="layout-form">
+      <div>
+        <div class="prose"><h2 style="margin-top:0">How it works</h2></div>
+        <ol class="steps" style="max-width:60ch;margin-top:1.5rem">
+          <li><h4>Buy and download</h4><p>Your files arrive right after checkout.</p></li>
+          <li><h4>Pick your color theme</h4><p>All four themes are included, so choose the one that fits your business.</p></li>
+          <li><h4>Add your sales data</h4><p>Fill in the included data template, then follow the setup guide to connect it.</p></li>
+          <li><h4>Refresh whenever you update</h4><p>Add new sales to the template and refresh. You stay in control of your data.</p></li>
+        </ol>
+      </div>
+      <aside>
+        <div class="card">
+          <h4>What you need</h4>
+          <p>Power BI Desktop, which is free from Microsoft and runs on Windows. It doesn't run natively on Mac.</p>
+        </div>
+        <div class="card" style="margin-top:1.5rem">
+          <h4>Rather have it set up for you?</h4>
+          <p>The <a href="/templates/ecommerce-business-performance/">E-Commerce Business Performance Dashboard</a> is connected to your data and matched to your colors and logo for you. For something built around your business, see <a href="/services/#custom">custom analytics</a>.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="band-dark">
+  <div class="wrap"><div class="center-narrow">
+    <h2>Ready to see your numbers clearly?</h2>
+    <p class="lede" style="color:#dbe6dd">Pick a version and download it today.</p>
+    <div class="btn-row"><a class="btn btn-gold" href="{SHOP}">Buy now</a></div>
+  </div></div>
 </section>
 
 </main>
@@ -838,7 +1098,7 @@ about = f'''<main id="main">
 # ---------------------------------------------------------------------------
 product_options = "\n".join(
     f'              <option value="{p["slug"]}">{p["name"]} &mdash; {p["price"]}</option>'
-    for p in PRODUCTS
+  for p in AVAILABLE_PRODUCTS
 )
 
 contact = f'''<main id="main">
@@ -863,8 +1123,13 @@ contact = f'''<main id="main">
           <div class="choices">
             <label class="choice">
               <input type="radio" name="interest" value="template" required>
-              <span>A dashboard template &mdash; {PRICE_RANGE}
-                <em>Set up one of the ready-made dashboards with my data</em></span>
+              <span>Dashboard setup &mdash; $249
+                <em>Have an available dashboard connected to my data</em></span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="interest" value="download">
+              <span>Self-service download question &mdash; $29–$99
+                <em>Purchases are through the shop; each includes four PBIX themes, sample Excel, and setup instructions</em></span>
             </label>
             <label class="choice">
               <input type="radio" name="interest" value="custom">
@@ -903,7 +1168,7 @@ contact = f'''<main id="main">
         <!-- Branch: dashboard template -->
         <div class="branch" data-branch="template" hidden>
           <div class="field">
-            <label for="dashboard">Which dashboard are you interested in?</label>
+            <label for="dashboard">Which dashboard would you like set up?</label>
             <select id="dashboard" name="dashboard" data-required>
               <option value="">Choose a dashboard</option>
 {product_options}
@@ -984,7 +1249,7 @@ contact = f'''<main id="main">
         </div>
 
         <button class="btn btn-gold" type="submit">Send inquiry</button>
-        <p class="form-note">I reply personally, usually within one business day. Nothing is charged and no payment details are collected here &mdash; for template requests I confirm the dashboard fits your data first, then explain payment and next steps.</p>
+        <p class="form-note">I reply personally, usually within one business day. This form does not take payment. For $249 setup requests I confirm the dashboard fits your data before sending an invoice. Self-service downloads are purchased through the shop and do not include implementation or color customization.</p>
       </form>
     </div>
 
@@ -1031,12 +1296,12 @@ not_found = '''<main id="main">
 if __name__ == "__main__":
     page("index.html",
          "England Analytics — Business Analytics and Dashboards for Small Businesses",
-         f"Dashboards, reporting, and analytics for small and growing businesses. Ready-made dashboard templates from {PRICE_LOW}, or custom analytics work built around your business.",
+          f"Self-service Power BI dashboards from {DOWNLOAD_LOW} to {DOWNLOAD_HIGH}, $249 data-connected setup for selected dashboards, and custom analytics for small businesses.",
          "/", home)
 
     page("templates/index.html",
-         f"Dashboard Templates — {PRICE_RANGE} | England Analytics",
-         f"Ready-to-implement Power BI dashboard templates for e-commerce, warehouse operations, sales, and more. From {PRICE_LOW}, set up with your own data.",
+         f"Dashboard Templates — {ALL_RANGE} | England Analytics",
+          f"Self-service Power BI downloads from {DOWNLOAD_LOW} to {DOWNLOAD_HIGH}, plus selected dashboard setup connected to your data for {PRICE_LOW}.",
          "/templates/", templates_page)
 
     for p in PRODUCTS:
@@ -1045,9 +1310,14 @@ if __name__ == "__main__":
              p["one_line"],
              "/templates/", product_detail(p))
 
+    page("templates/ecommerce-dashboard/index.html",
+         f"E-Commerce Dashboards — from {DOWNLOAD_LOW} | England Analytics",
+         f"Ready-made Power BI dashboards for online sellers. KPI, Standard, and Combined versions from {DOWNLOAD_LOW}. Instant download, four color themes.",
+         "/templates/", ecommerce_downloads)
+
     page("services/index.html",
          "Services — Dashboards, Custom Analytics, and Data Projects | England Analytics",
-         f"Three ways to work together: {PRICE_RANGE} dashboard templates, custom analytics projects, and hourly data work including Excel, Power BI, and SQL.",
+          f"Self-service dashboards from {DOWNLOAD_LOW} to {DOWNLOAD_HIGH}, selected $249 dashboard setup, custom analytics projects, and hourly data work.",
          "/services/", services)
 
     page("about/index.html",
@@ -1065,7 +1335,7 @@ if __name__ == "__main__":
 
     # robots + sitemap
     urls = ["/", "/templates/", "/services/", "/about/", "/contact/"] + \
-           [f"/templates/{p['slug']}/" for p in PRODUCTS]
+           [f"/templates/{p['slug']}/" for p in PRODUCTS] + [DOWNLOADS_PAGE]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     for u in urls:
         sm += f"  <url><loc>{DOMAIN}{u}</loc></url>\n"
