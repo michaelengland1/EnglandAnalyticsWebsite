@@ -190,6 +190,7 @@ ALL_RANGE = f"{ALL_LOW}\u2013{PRICE_HIGH}"
 
 NAV = [
     (SHOP, "Shop Templates"),
+    ("/templates/", "Templates"),
     ("/services/", "Services"),
     ("/about/", "About"),
 ]
