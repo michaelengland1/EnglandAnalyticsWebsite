@@ -189,8 +189,7 @@ ALL_LOW = f"${min(_dl_prices[0], _prices[0])}"
 ALL_RANGE = f"{ALL_LOW}\u2013{PRICE_HIGH}"
 
 NAV = [
-    (SHOP, "Shop"),
-    ("/templates/", "Templates"),
+    (SHOP, "Shop Templates"),
     ("/services/", "Services"),
     ("/about/", "About"),
 ]
