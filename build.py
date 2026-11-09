@@ -28,7 +28,7 @@ DOWNLOADS = [
     {
         "slug": "ecommerce-kpi-dashboard",
         "name": "E-Commerce KPI",
-        "price": "$29",
+        "price": "$19",
         "pages": "1",
         "image": "/assets/previews/ecommerce-kpi-1.png",
         "one_line": "20 essential metrics on one page: sales, customers, profitability, and operations.",
@@ -40,7 +40,7 @@ DOWNLOADS = [
     {
         "slug": "ecommerce-standard-dashboard",
         "name": "E-Commerce Standard",
-        "price": "$79",
+        "price": "$49",
         "pages": "2",
         "image": "/assets/previews/ecommerce-dashboard-1.png",
         "one_line": "Sales trends, product performance, customers, and profitability across two pages.",
@@ -52,7 +52,7 @@ DOWNLOADS = [
     {
         "slug": "ecommerce-combined-dashboard",
         "name": "E-Commerce Combined",
-        "price": "$99",
+        "price": "$59",
         "pages": "4",
         "image": "/assets/previews/ecommerce-dashboard-2.png",
         "one_line": "Everything in KPI and Standard, plus an order list, connected in one four-page dashboard.",
